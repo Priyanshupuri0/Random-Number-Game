@@ -10,7 +10,7 @@
     <title>Random Number Game</title>
     <style>
         .bg-image {
-            background-image: url('Image/background.jpg');
+            background-image: url('Image/background.png');
             background-size: 100%;
             background-repeat: none;
             position: relative;
@@ -26,7 +26,7 @@
         h1 {
             text-align: center;
             position: relative;
-            top: 99px;
+            top: 92px;
             margin-right: 50px;
 
         }
@@ -38,17 +38,25 @@
 
         .row1,
         .row2,
-        .row3,
-        .row4 {
+        .row3 {
             position: relative;
             text-align: center;
             top: 200px;
 
         }
+        .row4{
+            /* top: 0px; */
+            bottom: 300px;
+            position: relative;
+            text-align: center;
+        }
 
         #cnfrmation_yes,
         #cnfrmation_no {
             display: none;
+            font-weight: bold;
+            border-radius: 5px;
+            background-image: linear-gradient(to bottom,rgba(143, 69, 121, 0.4),rgba(80, 80, 126,0.6));
         }
         #check{
             position: relative;
@@ -83,18 +91,19 @@
                 </label>
                 <button onclick="randomfunc_check()">Check</button>
             </div>
-            <div class="row4" id="row4">
-                <div id="result"></div>
-                <span id="result1"></span>
-                <button id="cnfrmation_yes" onclick="yes()">Yes</button>
-                <button id="cnfrmation_no" onclick="no()">No</button>
-            </div>
+            
+        </div>
+        <div class="row4" id="row4">
+            <div id="result"></div>
+            <span id="result1"></span>
+            <button id="cnfrmation_yes" onclick="yes()">Yes</button>
+            <button id="cnfrmation_no" onclick="no()">No</button>
         </div>
         <div id="check"></div>
     </div>
     <script>
         let random_num;
-        let chance = 3;
+        let chance = 4;
         function player_name() {
             let name = document.getElementById('txt-box').value;
 
@@ -103,20 +112,13 @@
         }
         function randomfunc_call() {
             random_num = Math.floor(10 * Math.random());
-            document.getElementById('gen').innerHTML = "Number Generated Successfully";
-            console.log(random_num);
+            document.getElementById('gen').innerHTML = "Number Generated Successfully 'Range:[0,9)'";
+            console.log("Random Number Generated= "+random_num);
         }
         function randomfunc_check() {
             let user_value = document.getElementById('user_num').value;
-            chance--;
-            chance_left();
-            if (chance < 0) {
-                document.getElementById('row3').innerHTML = "Game Over";
-                document.getElementById('cnfrmation_yes').style.display = "block";
-                document.getElementById('cnfrmation_no').style.display = "block";
-                document.getElementById('row4').innerHTML = "Do You Want To Play Again: ";
-
-            }
+            
+            if(chance>=0){
             if (user_value == random_num) {
                 document.getElementById('result').innerHTML = "Congratulation! You guessed it right";
                 document.getElementById('result1').innerHTML = "Do you want to play again: ";
@@ -130,21 +132,35 @@
                 else if (user_value > random_num)
                     document.getElementById('result1').innerHTML = "Number is less than " + user_value;
             }
-            document.getElementById('user_num').value = "";
+            document.getElementById('user_num').value = "";}
+            chance--;
+            chance_left();
         }
         function chance_left() {
-
-            if (chance >= 0)
-                document.getElementById('chance').innerHTML = chance + ")";
-            else
-                document.getElementById('chance').innerHTML = 0 + ")";
+            
+            if (chance > 0)
+                document.getElementById('chance').innerHTML = chance-1 + ")";
+            else 
+            {   document.getElementById('chance').innerHTML = chance-1 + ")";
+                
+               
+                document.getElementById('container').innerHTML="";
+                document.getElementById('result').innerHTML="";
+                document.getElementById('result1').innerHTML="";
+                document.getElementById('check').innerHTML="Game Over,You Lose"+"<br>"+"Do you want to play again: ";
+                document.getElementById('check').style.fontSize="30px";
+                document.getElementById('cnfrmation_yes').style.display = "inline-block";
+                document.getElementById('cnfrmation_no').style.display = "inline-block";
+            }   
         }
         function yes() {
             location.reload();
         }
         function no() {
             document.getElementById('container').innerHTML="";
+            document.getElementById('row4').innerHTML="";
             document.getElementById('check').innerHTML = "See You Again";
+            document.getElementById('check').style.fontSize="400%";
         }
         chance_left();
     </script>
