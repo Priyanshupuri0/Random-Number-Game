@@ -19,8 +19,6 @@
         .container {
             /* border: 1px solid red; */
             height: 700px;
-
-
         }
 
         h1 {
@@ -28,9 +26,7 @@
             position: relative;
             top: 92px;
             margin-right: 50px;
-
         }
-
 
         .row2 {
             margin: 10px;
@@ -42,10 +38,9 @@
             position: relative;
             text-align: center;
             top: 200px;
-
         }
+
         .row4{
-            /* top: 0px; */
             bottom: 300px;
             position: relative;
             text-align: center;
@@ -58,6 +53,7 @@
             border-radius: 5px;
             background-image: linear-gradient(to bottom,rgba(143, 69, 121, 0.4),rgba(80, 80, 126,0.6));
         }
+
         #check{
             position: relative;
             bottom: 450px;
@@ -102,7 +98,7 @@
     </div>
     <script>
         let random_num;
-        let chance = 4;
+        let chance = 3;
         function player_name() {
             let name = document.getElementById('txt-box').value;
 
@@ -117,7 +113,6 @@
         function randomfunc_check() {
             let user_value = document.getElementById('user_num').value;
             
-            if(chance>=0){
             if (user_value == random_num) {
                 document.getElementById('result').innerHTML = "Congratulation! You guessed it right";
                 document.getElementById('result1').innerHTML = "Do you want to play again: ";
@@ -131,18 +126,16 @@
                 else if (user_value > random_num)
                     document.getElementById('result1').innerHTML = "Number is less than " + user_value;
             }
-            document.getElementById('user_num').value = "";}
+            document.getElementById('user_num').value = "";
             chance--;
             chance_left();
         }
         function chance_left() {
             
-            if (chance > 0)
-                document.getElementById('chance').innerHTML = chance-1 + ")";
+            if (chance >= 0)
+                document.getElementById('chance').innerHTML = chance + ")";
             else 
-            {   document.getElementById('chance').innerHTML = chance-1 + ")";
-                
-               
+            {   
                 document.getElementById('container').innerHTML="";
                 document.getElementById('result').innerHTML="";
                 document.getElementById('result1').innerHTML="";
